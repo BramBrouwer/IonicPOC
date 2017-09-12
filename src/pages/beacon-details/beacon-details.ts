@@ -18,15 +18,16 @@ import { ToastController } from 'ionic-angular';
 })
 export class BeaconDetailsPage {
 
-  beacon: Beacon;
+  inputBeacon: Beacon;
   test: String;
   ble: BLE;
   connected: boolean;
-  beaconinfo:string;
+  connectedBeacon:string;
+ 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, ble: BLE,private toastCtrl: ToastController) {
     this.connected = false;
-    this.beacon = navParams.get('beacon');
+    this.inputBeacon = navParams.get('beacon');
     this.ble = ble;
   }
 
@@ -43,13 +44,14 @@ export class BeaconDetailsPage {
     var self = this;
     this.ble.disconnect(id).then(()=>{
       console.log("Disconnected from beacon.");
+      this.connectedBeacon = null;
       self.connected = false;
     });
   }
 
   successCallback(data){
       this.connected = true;
-      this.beaconinfo = data;
+      this.connectedBeacon = data;
       console.log(data);
       this.presentToast("Succesfully connected");
   }

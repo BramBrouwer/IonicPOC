@@ -17,27 +17,27 @@
   <ion-list>
     <ion-item>
       <ion-label>name</ion-label>
-      <ion-badge item-right>{{beacon?.name}}</ion-badge>
+      <ion-badge item-right>{{inputBeacon?.name}}</ion-badge>
     </ion-item>
     <ion-item>
       <ion-label>id</ion-label>
-      <ion-badge item-right>{{beacon?.id}}</ion-badge>
+      <ion-badge item-right>{{inputBeacon?.id}}</ion-badge>
     </ion-item>
     <ion-item>
       <ion-label>advertising</ion-label>
-      <ion-badge item-right>{{beacon?.advertising}}</ion-badge>
+      <ion-badge item-right>{{inputBeacon?.advertising}}</ion-badge>
     </ion-item>
     <ion-item>
       <ion-label>RSSI</ion-label>
-      <ion-badge item-right>{{beacon?.rssi}}</ion-badge>
+      <ion-badge item-right>{{inputBeacon?.rssi}}</ion-badge>
     </ion-item>
-   <button *ngIf="!connected" ion-item (click)="connect(beacon.id)">Connect</button>  
-   <button *ngIf="connected" ion-item (click)="disconnect(beacon.id)">Disconnect</button>
+   <button *ngIf="!connected" ion-item (click)="connect(inputBeacon.id)">Connect</button>  
+   <button *ngIf="connected" ion-item (click)="disconnect(inputBeacon.id)">Disconnect</button>
     <ion-item-divider>
       Log
     </ion-item-divider>
-    <ion-item *ngIf="beaconinfo" text-wrap>
-      {{beaconinfo}}
+    <ion-item *ngIf="connectedBeacon" text-wrap>
+      {{connectedBeacon}}
     </ion-item>
   </ion-list>
 </ion-content>
