@@ -14,31 +14,65 @@
 
 
 <ion-content padding>
+
+  <!-- General Beacon details -->
   <ion-list>
     <ion-item>
-      <ion-label>name</ion-label>
+      <ion-title>General beacon info:</ion-title>
+    </ion-item>
+    <ion-item>
+      <ion-label>Name</ion-label>
       <ion-badge item-right>{{inputBeacon?.name}}</ion-badge>
     </ion-item>
     <ion-item>
-      <ion-label>id</ion-label>
+      <ion-label>ID</ion-label>
       <ion-badge item-right>{{inputBeacon?.id}}</ion-badge>
     </ion-item>
     <ion-item>
-      <ion-label>advertising</ion-label>
+      <ion-label>Advertising</ion-label>
       <ion-badge item-right>{{inputBeacon?.advertising}}</ion-badge>
     </ion-item>
     <ion-item>
       <ion-label>RSSI</ion-label>
       <ion-badge item-right>{{inputBeacon?.rssi}}</ion-badge>
     </ion-item>
-   <button *ngIf="!connected" ion-item (click)="connect(inputBeacon.id)">Connect</button>  
-   <button *ngIf="connected" ion-item (click)="disconnect(inputBeacon.id)">Disconnect</button>
-    <ion-item-divider>
-      Log
-    </ion-item-divider>
-    <ion-item *ngIf="connectedBeacon" text-wrap>
-      {{connectedBeacon}}
-    </ion-item>
+    <button *ngIf="!connected" ion-item (click)="connect(inputBeacon.id)">Connect</button>
+    <button *ngIf="connected" ion-item (click)="disconnect(inputBeacon.id)">Disconnect</button>
   </ion-list>
+
+
+  <ion-title>Connection info:</ion-title>
+
+
+  <!-- More details (loaded after connecting) -->
+  <ion-list *ngIf="connectedBeacon">
+
+    <ion-item>
+      <ion-title>Characteristics:</ion-title>
+    </ion-item>
+
+    <div *ngFor="let characteristic of connectedBeacon.characteristics">
+      <ion-item-divider>
+          {{characteristic.service}}
+      </ion-item-divider>
+
+        <ion-item>
+          <ion-label>characteristic</ion-label>
+          <ion-badge item-right>{{characteristic.characteristic}}</ion-badge>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>properties</ion-label>
+            <ion-badge item-right>{{characteristic.properties}}</ion-badge>
+          </ion-item>
+
+          <ion-item>
+              <ion-label>descriptors</ion-label>
+              <ion-badge item-right>{{characteristic.descriptors}}</ion-badge>
+            </ion-item>
+     
+    </div>
+
+  </ion-list>
+
 </ion-content>
-<div>{{test}}</div>

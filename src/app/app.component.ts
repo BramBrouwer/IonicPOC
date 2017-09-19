@@ -28,8 +28,7 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Beacons', component: BeaconsPage },
-      {title: 'Beacon details', component: BeaconDetailsPage}  
-      
+      {title: 'Beacon details', component: BeaconDetailsPage}      
     ];
   }
 

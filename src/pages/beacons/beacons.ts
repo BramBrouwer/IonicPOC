@@ -4,6 +4,8 @@ import { BLE } from "@ionic-native/ble";
 import { Beacon } from "../../models/beacon";
 import { NgZone } from "@angular/core";
 import { BeaconDetailsPage } from "../beacon-details/beacon-details";
+import { Characteristic } from "../../models/characteristic";
+import { BeaconService } from "../../providers/beacons";
 
 /**
  * Generated class for the BeaconsPage page.
@@ -22,24 +24,23 @@ export class BeaconsPage {
   foundDevices: Array<Beacon>;
   zone: NgZone;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ble: BLE) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public ble: BLE,
+    private beaconService: BeaconService) {
     this.zone = new NgZone({ enableLongStackTrace: false });
     this.foundDevices = [];
-    this.generateTestData(); 
+    beaconService.getBeacons().subscribe(result =>{
+     console.log(result);
+    });
+    //this.generateTestData(); 
     // this.scanForBeacons();
   }
 
-generateTestData(){
-
-  // var beacon1 = new Beacon("Beacon 1","1",[1,0,145,5],77);
-  // var beacon2 = new Beacon("Beacon 2","2",[6,3,4,1],63);
-  // var beacon3 = new Beacon("Beacon 3","3",[1,8,3,5],82);
-  // var beacon4 = new Beacon("Beacon 4","4",[11,3,5,5],36);
-  // this.foundDevices.push(beacon1);
-  // this.foundDevices.push(beacon2);
-  // this.foundDevices.push(beacon3);
-  // this.foundDevices.push(beacon4);
-}
+  /*
+    Scan for beacons. Called on page start&page refresh
+  */
   scanForBeacons(){
     this.ble.scan([], 10).subscribe(device => {
       this.zone.run(() => {
@@ -48,8 +49,11 @@ generateTestData(){
         this.foundDevices.push(device);
       })
     })
-  }
+  } 
 
+  /*
+    Refresh page
+  */
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
     this.foundDevices = [];
@@ -59,13 +63,39 @@ generateTestData(){
       refresher.complete();
     }, 10000);
   }
-
-  goToDetails(beacon: Beacon) {
-    this.navCtrl.push(BeaconDetailsPage, { beacon });
+  
+   /*
+    Generate test data so we can testrun in browser without needing bluetooth
+  */
+  generateTestData(){
+    var beacon1 = new Beacon(
+      "Beacon 1",
+      "1",
+      [1,0,145,5],
+      77,
+      ["2314","123512","937860","930125"],
+      [
+        new Characteristic(123,"adsa",["a","b","c"],[{uuid:"asdas"}]),
+        new Characteristic(456,"mem",["d","e","f"],[{uuid:"a32da2ds"}]),
+        new Characteristic(789,"1v1me",["g","h","i"],[{uuid:"12821ueysq"}])
+      ],
+      [{uuid: "asda"}]
+    );
+    this.foundDevices.push(beacon1);
   }
-
+  
+  /*
+    Utility
+  */
   ionViewDidLoad() {
     console.log('ionViewDidLoad BeaconsPage');
+  }
+  
+  /*
+    Navigate to detail page and pass currently selected beacon
+  */
+  goToDetails(beacon: Beacon) {
+    this.navCtrl.push(BeaconDetailsPage, { beacon });
   }
 
 }

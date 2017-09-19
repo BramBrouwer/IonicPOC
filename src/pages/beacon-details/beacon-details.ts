@@ -18,27 +18,35 @@ import { ToastController } from 'ionic-angular';
 })
 export class BeaconDetailsPage {
 
-  inputBeacon: Beacon;
+  inputBeacon: Beacon;            //Beacon passed from beacons screen
   test: String;
-  ble: BLE;
+  ble: BLE;   
   connected: boolean;
-  connectedBeacon:string;
- 
+  connectedBeacon:Beacon;         //Beacon instance returned when connecting
+  connectedBeaconString:string;   //String intance of returned beacon
 
   constructor(public navCtrl: NavController, public navParams: NavParams, ble: BLE,private toastCtrl: ToastController) {
     this.connected = false;
     this.inputBeacon = navParams.get('beacon');
     this.ble = ble;
+    this.displayTestBeacon();
   }
 
-  connect(id){
-    console.log("CONNECT CALLED");
+  displayTestBeacon(){
+    this.connectedBeacon = this.inputBeacon;
+    this.connectedBeaconString = JSON.stringify(this.connectedBeacon);
+  }
+
+  connect(device_id){
+    
     var self = this;
-    this.ble.connect(id).subscribe(
+    this.ble.connect(device_id).subscribe(
       data => self.successCallback(JSON.stringify(data)),
       error => self.errorCallback(JSON.stringify(error))
     );
+
   }
+
 
   disconnect(id){
     var self = this;

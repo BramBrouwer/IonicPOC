@@ -3,11 +3,12 @@ export class Characteristic {
     service: number;
     characteristic: string;
     properties: string[];
-    descriptors: JSON;
+    descriptors: [{ uuid: string }]
 
-    constructor(service:number,characteristic:string,properties:string[]){
+    constructor(service:number,characteristic:string,properties:string[],descriptors:[{uuid:string}]){
         this.service = service;
         this.characteristic = characteristic;
         this.properties = properties;
+        this.descriptors = descriptors;
     }
 }
