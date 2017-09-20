@@ -61,28 +61,28 @@ export class BeaconsPage {
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.complete();
-    }, 10000);
+    }, 5000);
   }
   
    /*
     Generate test data so we can testrun in browser without needing bluetooth
   */
-  generateTestData(){
-    var beacon1 = new Beacon(
-      "Beacon 1",
-      "1",
-      [1,0,145,5],
-      77,
-      ["2314","123512","937860","930125"],
-      [
-        new Characteristic(123,"adsa",["a","b","c"],[{uuid:"asdas"}]),
-        new Characteristic(456,"mem",["d","e","f"],[{uuid:"a32da2ds"}]),
-        new Characteristic(789,"1v1me",["g","h","i"],[{uuid:"12821ueysq"}])
-      ],
-      [{uuid: "asda"}]
-    );
-    this.foundDevices.push(beacon1);
-  }
+  // generateTestData(){
+  //   var beacon1 = new Beacon(
+  //     "Beacon 1",
+  //     "1",
+  //     [1,0,145,5],
+  //     77,
+  //     ["2314","123512","937860","930125"],
+  //     [
+  //       new Characteristic(123,"adsa",["a","b","c"],[{uuid:"asdas"}]),
+  //       new Characteristic(456,"mem",["d","e","f"],[{uuid:"a32da2ds"}]),
+  //       new Characteristic(789,"1v1me",["g","h","i"],[{uuid:"12821ueysq"}])
+  //     ],
+  //     [{uuid: "asda"}]
+  //   );
+  //   this.foundDevices.push(beacon1);
+  // }
   
   /*
     Utility
